@@ -2,8 +2,6 @@ package com.lti.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,11 +9,11 @@ import javax.persistence.Table;
 @Table (name="vehicle_details")
 public class Vehicle {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	private int vid;
-	
 	@Column(length = 20)
 	private String regNo;
+	
+	@Column(length = 10)
+	private String type;
 	
 	@Column(length = 20)
 	private String mfr;
@@ -36,14 +34,6 @@ public class Vehicle {
 	
 	@Column(length = 20)
 	private String chNo;
-
-	public int getVid() {
-		return vid;
-	}
-
-	public void setVid(int vid) {
-		this.vid = vid;
-	}
 
 	public String getRegNo() {
 		return regNo;
@@ -107,5 +97,13 @@ public class Vehicle {
 
 	public void setChNo(String chNo) {
 		this.chNo = chNo;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

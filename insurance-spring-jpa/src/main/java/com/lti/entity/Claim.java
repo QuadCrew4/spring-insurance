@@ -2,29 +2,29 @@ package com.lti.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "claims")
+@Table (name = "claim_details")
 public class Claim {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "cl_id")
-	private int cid;
+	@Column(name = "claim_id")
+	private String cid;
 	
 	private double amount;
 	
 	@Column(length = 20)
 	private String status;
+	
+	@Column (length = 50)
+	private String reason;
 
-	public int getCid() {
+	public String getCid() {
 		return cid;
 	}
 
-	public void setCid(int cid) {
+	public void setCid(String cid) {
 		this.cid = cid;
 	}
 
@@ -42,5 +42,13 @@ public class Claim {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 }

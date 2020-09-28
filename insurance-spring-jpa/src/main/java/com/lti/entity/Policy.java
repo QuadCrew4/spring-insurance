@@ -1,25 +1,16 @@
 package com.lti.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "policies")
+@Table (name = "policy_details")
 public class Policy {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "pol_id")
-	private int pid;
+	@Column(name = "pol_no")
+	private String pno;
 	
 	@Column (length = 20)
 	private String type;
@@ -29,15 +20,12 @@ public class Policy {
 	@Column (length = 20)
 	private String expDate;
 	
-	@OneToMany(mappedBy = "pol", cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
-	private List<User> users = new ArrayList<User>();
-
-	public int getPid() {
-		return pid;
+	public String getPno() {
+		return pno;
 	}
 
-	public void setPid(int pid) {
-		this.pid = pid;
+	public void setPno(String pno) {
+		this.pno = pno;
 	}
 
 	public String getType() {
@@ -62,13 +50,5 @@ public class Policy {
 
 	public void setExpDate(String expDate) {
 		this.expDate = expDate;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 }

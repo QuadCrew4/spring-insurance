@@ -6,7 +6,11 @@
  <persistence-unit name="SpringJPA" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!--<class>com.lti.entity.Friend</class>-->
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>com.lti.entity.User</class>
+        <class>com.lti.entity.Policy</class>
+        <class>com.lti.entity.Claim</class>
+        <class>com.lti.entity.Vehicle</class>
+		<!-- <exclude-unlisted-classes>true</exclude-unlisted-classes> -->
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orcl" />

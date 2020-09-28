@@ -1,28 +1,24 @@
 package com.lti.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table (name = "users")
+@Table (name = "user_details")
+@NamedQuery (name = "login", query = "FROM User WHERE username=:uname AND password=: psw")
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@Column(name = "user_id")
-	private int uid;
-	
 	@Column (length = 20)
 	private String username;
+	
+	@Column (length = 20)
+	private String name;
 	
 	@Column (length = 20)
 	private String password;
@@ -30,18 +26,92 @@ public class User {
 	@Column (length = 20)
 	private String dob;
 	
-	@Column (length = 20)
+	@Column (length = 30)
+	private String email;
+	
+	@Column (length = 40)
 	private String address;
 	
 	@Column (length = 20)
 	private String mobile;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "pol_id")
-	private Policy pol;
+	private Policy policy;
 	
-	@OneToOne (cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
+	@OneToOne
+	@JoinColumn(name = "claim_id")
 	private Claim claim;
-	
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public Policy getPolicy() {
+		return policy;
+	}
+
+	public void setPolicy(Policy pol) {
+		this.policy = pol;
+	}
+
+	public Claim getClaim() {
+		return claim;
+	}
+
+	public void setClaim(Claim claim) {
+		this.claim = claim;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
