@@ -4,6 +4,7 @@ package com.lti.repo;
 
 import java.util.Base64;
 import java.util.Base64.Encoder;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +39,10 @@ public class UserRepoImpl implements UserRepo {
 		return u;
 	}
 	
+	public List<User> fetchAll(){
+		return em.createQuery("from User").getResultList();
+	}
+	
 	public User authenticate(Login login) {
 		String pwd = login.getPassword();
 		Encoder enc= Base64.getEncoder();
@@ -59,6 +64,14 @@ public class UserRepoImpl implements UserRepo {
 		em.persist(c);
 	}
 
+	@Transactional(value = TxType.REQUIRED)
+	public void renewInsurance(Policy p, String expDate)
+	{
+		p.setExpDate(expDate);
+		em.merge(p);
+	}
+	
+	
 	public Policy fetchUserPolicy(String pno) {
 		Policy p = em.find(Policy.class, pno);
 		return p;
@@ -82,8 +95,23 @@ public class UserRepoImpl implements UserRepo {
 	}
 	
 	@Transactional(value = TxType.REQUIRED)
+	public void setUserClaim(Claim c,String stat, Double amt) {
+		c.setStatus(stat);
+		c.setAmount(amt);
+		em.merge(c);
+	}
+	
+	@Transactional(value = TxType.REQUIRED)
 	public void removeUser(String uname) {
 		em.remove( em.find(User.class, uname));
 		
 	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void removeUserClaim(String uname) {
+		User u = em.find(User.class, uname);
+		u.setClaim(null);
+		em.merge(u);
+	}
+	
 }

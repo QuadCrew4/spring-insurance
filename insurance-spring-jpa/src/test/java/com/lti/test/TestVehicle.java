@@ -16,18 +16,20 @@ public class TestVehicle {
 	@Autowired
 	private VehicleRepo repo;
 	
+	/* Test cases for adding vehicle details and fetching a record */
+	
 	@Test
 	public void testAddVehicleDetails() {
 		Vehicle v = new Vehicle();
-		v.setRegNo("ABCD4567");
-		v.setMfr("Honda");
-		v.setModel("CB Shine");
-		v.setType("Bike");
-		v.setPdate("11/05/2015");
-		v.setPrice(50000);
-		v.setDlicence("MHK20WB21");
-		v.setEngNo("EGN201556");
-		v.setChNo("CHS201575");
+		v.setRegNo("CKJH4867");
+		v.setMfr("Ferrari");
+		v.setModel("Tributo");
+		v.setType("Car");
+		v.setPdate("05/05/2016");
+		v.setPrice(60000);
+		v.setDlicence("MHK21WC21");
+		v.setEngNo("EGN301576");
+		v.setChNo("CHS201775");
 		
 		repo.saveVehicle(v);
 	}
