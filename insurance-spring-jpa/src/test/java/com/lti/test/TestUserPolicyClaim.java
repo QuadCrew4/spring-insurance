@@ -41,12 +41,27 @@ public class TestUserPolicyClaim {
 	}
 	
 	@Test
+	public void testAddUser() {
+		User u = new User();
+		u.setUsername("parnab");
+		u.setName("Parnab Das");
+		u.setPassword("random");
+		u.setDob("09/12/1997");
+		u.setEmail("parnab.das@gmail.com");
+		u.setAddress("Saltlake");
+		u.setMobile("9748096259");
+		
+		repo.saveUser(u);
+	}
+	
+	
+	@Test
 	public void testAddPolicy() {
 		Policy p =new Policy();
-		p.setPno("ANXH1234");
-		p.setType("Comprehensive");
-		p.setTerm(2);
-		p.setExpDate("11/12/2021");
+		p.setPno("BHGD1854");
+		p.setType("Third Party");
+		p.setTerm(3);
+		p.setExpDate("05/09/2022");
 		
 		repo.savePolicy(p);
 	}
@@ -54,9 +69,9 @@ public class TestUserPolicyClaim {
 	@Test
 	public void testAddClaim() {
 		Claim c=new Claim();
-		c.setCid("CL123");
-		c.setAmount(24000);
-		c.setReason("Accident");
+		c.setCid("CL456");
+		c.setAmount(30000);
+		c.setReason("Theft");
 		
 		repo.saveClaim(c);
 	}
@@ -80,5 +95,17 @@ public class TestUserPolicyClaim {
 		User u = repo.fetchUser("parnab");
 		System.out.println("User\t\tClaim No\tClaim Amount\tClaim Reason");
 		System.out.println(u.getName()+"\t"+u.getClaim().getCid()+"\t\t"+u.getClaim().getAmount()+"\t\t"+u.getClaim().getReason());
+	}
+	
+	@Test
+	public void testAddUserPolicy() {
+		User u = repo.fetchUser("parnab");
+		Policy p = repo.fetchUserPolicy("ANXH1234");
+		repo.addUserPolicy(u, p);
+	}
+	
+	@Test
+	public void testAddUserClaim() {
+		
 	}
 }

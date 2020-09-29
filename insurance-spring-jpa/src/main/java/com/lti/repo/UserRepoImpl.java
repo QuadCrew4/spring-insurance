@@ -2,6 +2,9 @@ package com.lti.repo;
 
 
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -24,6 +27,9 @@ public class UserRepoImpl implements UserRepo {
 	
 	@Transactional(value = TxType.REQUIRED)
 	public void saveUser(User u) {
+		String pwd = u.getPassword();
+		Encoder enc= Base64.getEncoder();
+		u.setPassword(new String(enc.encode(pwd.getBytes())));
 		em.persist(u);
 	}
 
@@ -31,8 +37,12 @@ public class UserRepoImpl implements UserRepo {
 		User u = em.find(User.class, uname);
 		return u;
 	}
-
+	
 	public User authenticate(Login login) {
+		String pwd = login.getPassword();
+		Encoder enc= Base64.getEncoder();
+		login.setPassword(new String(enc.encode(pwd.getBytes())));
+		
 		Query query = em.createNamedQuery("login");
 		query.setParameter("uname", login.getUsername());
 		query.setParameter("psw", login.getPassword());
@@ -58,5 +68,22 @@ public class UserRepoImpl implements UserRepo {
 		Claim c = em.find(Claim.class, cno);
 		return c;
 	}
-
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void addUserPolicy(User u, Policy p) {
+		u.setPolicy(p);
+		em.merge(u);
+	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void addUserClaim(User u, Claim c) {
+		u.setClaim(c);
+		em.merge(u);
+	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void removeUser(String uname) {
+		em.remove( em.find(User.class, uname));
+		
+	}
 }
