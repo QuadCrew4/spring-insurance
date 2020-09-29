@@ -1,11 +1,15 @@
 package com.lti.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -35,13 +39,8 @@ public class User {
 	@Column (length = 20)
 	private String mobile;
 	
-	@OneToOne
-	@JoinColumn(name = "pol_id")
-	private Policy policy;
-	
-	@OneToOne
-	@JoinColumn(name = "claim_id")
-	private Claim claim;
+	@OneToMany(cascade = {CascadeType.ALL}, fetch=FetchType.EAGER)
+	private List<Policy> policies = new ArrayList<Policy>();
 
 	public String getUsername() {
 		return username;
@@ -90,28 +89,19 @@ public class User {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-
-	public Policy getPolicy() {
-		return policy;
-	}
-
-	public void setPolicy(Policy pol) {
-		this.policy = pol;
-	}
-
-	public Claim getClaim() {
-		return claim;
-	}
-
-	public void setClaim(Claim claim) {
-		this.claim = claim;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Policy> getPolicies() {
+		return policies;
+	}
+
+	public void setPolicies(List<Policy> policies) {
+		this.policies = policies;
 	}
 }

@@ -3,6 +3,8 @@ package com.lti.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +21,14 @@ public class Policy {
 	
 	@Column (length = 20)
 	private String expDate;
+	
+	@OneToOne
+	@JoinColumn(name = "claim_id")
+	private Claim claim;
+	
+	@OneToOne
+	@JoinColumn (name = "reg_no")
+	private Vehicle vehicle;
 	
 	public String getPno() {
 		return pno;
@@ -50,5 +60,21 @@ public class Policy {
 
 	public void setExpDate(String expDate) {
 		this.expDate = expDate;
+	}
+
+	public Claim getClaim() {
+		return claim;
+	}
+
+	public void setClaim(Claim claim) {
+		this.claim = claim;
+	}
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 }

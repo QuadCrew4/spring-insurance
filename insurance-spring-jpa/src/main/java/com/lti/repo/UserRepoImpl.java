@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.lti.entity.Claim;
 import com.lti.entity.Policy;
 import com.lti.entity.User;
+import com.lti.entity.Vehicle;
 import com.lti.pojo.Login;
 
 @Repository
@@ -33,6 +34,21 @@ public class UserRepoImpl implements UserRepo {
 		u.setPassword(new String(enc.encode(pwd.getBytes())));
 		em.persist(u);
 	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void savePolicy(Policy p) {
+		em.persist(p);
+	}
+
+	@Transactional(value = TxType.REQUIRED)
+	public void saveClaim(Claim c) {
+		em.persist(c);
+	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void saveVehicle(Vehicle v) {
+		em.persist(v);
+	}
 
 	public User fetchUser(String uname) {
 		User u = em.find(User.class, uname);
@@ -41,6 +57,21 @@ public class UserRepoImpl implements UserRepo {
 	
 	public List<User> fetchAll(){
 		return em.createQuery("from User").getResultList();
+	}
+	
+	public Policy fetchPolicy(String pno) {
+		Policy p = em.find(Policy.class, pno);
+		return p;
+	}
+
+	public Claim fetchClaim(String cno) {
+		Claim c = em.find(Claim.class, cno);
+		return c;
+	}
+	
+	public Vehicle fetchVehicle(String regno) {
+		Vehicle v = em.find(Vehicle.class, regno);
+		return v;
 	}
 	
 	public User authenticate(Login login) {
@@ -55,15 +86,10 @@ public class UserRepoImpl implements UserRepo {
 	}
 
 	@Transactional(value = TxType.REQUIRED)
-	public void savePolicy(Policy p) {
-		em.persist(p);
+	public void updateUser(User u) {
+		em.merge(u);
 	}
-
-	@Transactional(value = TxType.REQUIRED)
-	public void saveClaim(Claim c) {
-		em.persist(c);
-	}
-
+	
 	@Transactional(value = TxType.REQUIRED)
 	public void renewInsurance(Policy p, String expDate)
 	{
@@ -71,47 +97,14 @@ public class UserRepoImpl implements UserRepo {
 		em.merge(p);
 	}
 	
-	
-	public Policy fetchUserPolicy(String pno) {
-		Policy p = em.find(Policy.class, pno);
-		return p;
-	}
-
-	public Claim fetchUserClaim(String cno) {
-		Claim c = em.find(Claim.class, cno);
-		return c;
-	}
-	
 	@Transactional(value = TxType.REQUIRED)
-	public void addUserPolicy(User u, Policy p) {
-		u.setPolicy(p);
+	public void addUserPolicies(User u) {
 		em.merge(u);
 	}
 	
 	@Transactional(value = TxType.REQUIRED)
-	public void addUserClaim(User u, Claim c) {
-		u.setClaim(c);
-		em.merge(u);
+	public void addPolicyClaim(Policy p, Claim c) {
+		p.setClaim(c);
+		em.merge(p);
 	}
-	
-	@Transactional(value = TxType.REQUIRED)
-	public void setUserClaim(Claim c,String stat, Double amt) {
-		c.setStatus(stat);
-		c.setAmount(amt);
-		em.merge(c);
-	}
-	
-	@Transactional(value = TxType.REQUIRED)
-	public void removeUser(String uname) {
-		em.remove( em.find(User.class, uname));
-		
-	}
-	
-	@Transactional(value = TxType.REQUIRED)
-	public void removeUserClaim(String uname) {
-		User u = em.find(User.class, uname);
-		u.setClaim(null);
-		em.merge(u);
-	}
-	
 }

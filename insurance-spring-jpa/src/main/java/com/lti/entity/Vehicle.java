@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table (name="vehicle_details")
 public class Vehicle {
 	@Id
-	@Column(length = 20)
+	@Column(length = 20, name = "reg_no")
 	private String regNo;
 	
 	@Column(length = 10)
