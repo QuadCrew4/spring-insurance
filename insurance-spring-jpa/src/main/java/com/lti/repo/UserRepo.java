@@ -24,5 +24,6 @@ public interface UserRepo {
 	void addUserPolicies(User u);
 	void addPolicyClaim(Policy p, Claim c);
 	void addVehiclePolicy(Policy p,Vehicle v);
-	void setClaim(Claim c);
+	void removeClaim(String claimId);
+	void removePolicy(String policyNo);
 }

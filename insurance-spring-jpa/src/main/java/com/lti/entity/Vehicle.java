@@ -1,9 +1,16 @@
+/**
+ * @author 
+ * @version
+ */
 package com.lti.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+
+/* This class represents an entity for Vehicle */
 
 @Entity
 @Table (name="vehicle_details")
@@ -16,7 +23,7 @@ public class Vehicle {
 	private String type;
 	
 	@Column(length = 20)
-	private String mfr;
+	private String manufacturer;
 	
 	@Column(length = 20)
 	private String model;
@@ -24,16 +31,16 @@ public class Vehicle {
 	private double price;
 	
 	@Column(length = 20)
-	private String dlicence;
+	private String driverLicence;
 	
 	@Column(length = 20)
-	private String pdate;
+	private String purchaseDate;
 	
 	@Column(length = 20)
-	private String engNo;
+	private String engineNo;
 	
 	@Column(length = 20)
-	private String chNo;
+	private String chasisNo;
 
 	public String getRegNo() {
 		return regNo;
@@ -43,12 +50,12 @@ public class Vehicle {
 		this.regNo = regNo;
 	}
 
-	public String getMfr() {
-		return mfr;
+	public String getManufacturer() {
+		return manufacturer;
 	}
 
-	public void setMfr(String mfr) {
-		this.mfr = mfr;
+	public void setManufacturer(String mfr) {
+		this.manufacturer = mfr;
 	}
 
 	public String getModel() {
@@ -67,36 +74,36 @@ public class Vehicle {
 		this.price = price;
 	}
 
-	public String getDlicence() {
-		return dlicence;
+	public String getDriverLicence() {
+		return driverLicence;
 	}
 
-	public void setDlicence(String dlicence) {
-		this.dlicence = dlicence;
+	public void setDriverLicence(String dlicence) {
+		this.driverLicence = dlicence;
 	}
 
-	public String getPdate() {
-		return pdate;
+	public String getPurchaseDate() {
+		return purchaseDate;
 	}
 
-	public void setPdate(String pdate) {
-		this.pdate = pdate;
+	public void setPurchaseDate(String pdate) {
+		this.purchaseDate = pdate;
 	}
 
-	public String getEngNo() {
-		return engNo;
+	public String getEngineNo() {
+		return engineNo;
 	}
 
-	public void setEngNo(String engNo) {
-		this.engNo = engNo;
+	public void setEngineNo(String engNo) {
+		this.engineNo = engNo;
 	}
 
-	public String getChNo() {
-		return chNo;
+	public String getChasisNo() {
+		return chasisNo;
 	}
 
-	public void setChNo(String chNo) {
-		this.chNo = chNo;
+	public void setChasisNo(String chNo) {
+		this.chasisNo = chNo;
 	}
 
 	public String getType() {

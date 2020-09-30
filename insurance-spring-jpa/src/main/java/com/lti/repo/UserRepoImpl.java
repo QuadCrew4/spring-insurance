@@ -111,9 +111,16 @@ public class UserRepoImpl implements UserRepo {
 		p.setVehicle(v);
 		em.merge(p);		
 	}
-
+	
 	@Transactional(value = TxType.REQUIRED)
-	public void setClaim(Claim c) {
-		em.merge(c);	
+	public void removeClaim(String claimId) {
+		Claim c =em.find(Claim.class,claimId);
+		em.remove(c);
+	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public void removePolicy(String policyNo) {
+		Policy p =em.find(Policy.class,policyNo);
+		em.remove(p);
 	}
 }

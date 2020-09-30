@@ -1,3 +1,8 @@
+/**
+ * @author 
+ * @version
+ */
+
 package com.lti.entity;
 
 import javax.persistence.CascadeType;
@@ -9,17 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/* This class represents an entity for Policy */
+
 @Entity
 @Table (name = "policy_details")
 public class Policy {
 	@Id
 	@Column(name = "pol_no")
-	private String pno;
+	private String policyNo;
 	
 	@Column (length = 20)
 	private String type;
 
-	private int Term;
+	private int term;
 	
 	@Column (length = 20)
 	private String expDate;
@@ -32,12 +39,12 @@ public class Policy {
 	@JoinColumn (name = "reg_no")
 	private Vehicle vehicle;
 	
-	public String getPno() {
-		return pno;
+	public String getPolicyNo() {
+		return policyNo;
 	}
 
-	public void setPno(String pno) {
-		this.pno = pno;
+	public void setPolicyNo(String pno) {
+		this.policyNo = pno;
 	}
 
 	public String getType() {
@@ -49,11 +56,11 @@ public class Policy {
 	}
 
 	public int getTerm() {
-		return Term;
+		return term;
 	}
 
 	public void setTerm(int term) {
-		Term = term;
+		this.term = term;
 	}
 
 	public String getExpDate() {

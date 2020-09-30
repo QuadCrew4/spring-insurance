@@ -1,3 +1,8 @@
+/**
+ * @author 
+ * @version
+ */
+
 package com.lti.entity;
 
 import java.util.ArrayList;
@@ -12,6 +17,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+
+/* This class represents an entity for User */
 
 @Entity
 @Table (name = "user_details")

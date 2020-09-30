@@ -1,3 +1,8 @@
+/**
+ * @author 
+ * @version
+ */
+
 package com.lti.pojo;
 
 public class Login {
