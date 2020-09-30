@@ -1,7 +1,5 @@
 package com.lti.repo;
 
-
-
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.List;
@@ -106,5 +104,16 @@ public class UserRepoImpl implements UserRepo {
 	public void addPolicyClaim(Policy p, Claim c) {
 		p.setClaim(c);
 		em.merge(p);
+	}
+
+	@Transactional(value = TxType.REQUIRED)
+	public void addVehiclePolicy(Policy p, Vehicle v) {
+		p.setVehicle(v);
+		em.merge(p);		
+	}
+
+	@Transactional(value = TxType.REQUIRED)
+	public void setClaim(Claim c) {
+		em.merge(c);	
 	}
 }

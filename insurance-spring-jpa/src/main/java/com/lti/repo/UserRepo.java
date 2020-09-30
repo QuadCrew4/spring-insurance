@@ -23,4 +23,6 @@ public interface UserRepo {
 	User authenticate(Login login);
 	void addUserPolicies(User u);
 	void addPolicyClaim(Policy p, Claim c);
+	void addVehiclePolicy(Policy p,Vehicle v);
+	void setClaim(Claim c);
 }

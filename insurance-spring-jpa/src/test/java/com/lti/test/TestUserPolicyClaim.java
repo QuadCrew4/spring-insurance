@@ -184,7 +184,35 @@ public class TestUserPolicyClaim {
 		repo.updateUser(u);
 	}
 	
-	/*add a test for adding vehicle to policy and user and fetch it from db same as claim*/
+	/*add a test for adding vehicle to policy and user and fetch it */
+	
+	@Test
+	public void testAddUserPolicyVehicle() {
+		User u = repo.fetchUser("shilpi");
+		Vehicle v = repo.fetchVehicle("CKJH4867");	
+		List<Policy> policies = u.getPolicies();
+		for (Policy p : policies) {
+			if(p.getPno().equals("BHGD1854"))
+				repo.addVehiclePolicy(p, v);		
+		}
+		repo.updateUser(u);
+	}
+	
+	/*test to fetch vehicle details for a particular user and his particular policy*/
+	
+	@Test
+	public void testfetchUserVehicle() {
+		User u = repo.fetchUser("shilpi");
+		List<Policy> policies = u.getPolicies();
+		System.out.println("User: " + u.getName());
+		for (Policy p : policies) {
+			System.out.println(
+					"Policy No\tPolicy Type\tExpiry Date\t\tVehicle Registration number\t\tModel");
+			System.out.println(p.getPno() + "\t" + p.getType() + "\t" + p.getExpDate() + "\t\t\t" + 
+					p.getVehicle().getRegNo()+ "\t\t\t\t" + p.getVehicle().getModel());
+		}
+	}
+	
 	
 	/*test to fetch claim details for a particular user and his particular policy*/
 	
@@ -202,19 +230,58 @@ public class TestUserPolicyClaim {
 		System.out.println(c.getCid() + "\t\t" + c.getAmount() + "\t\t"
 				+ c.getReason() + "\t\t" + c.getStatus());
 	}
-	/*
-	 * Test for renewing an insurance
-	 * 
-	 * @Test public void testRenewPolicy() { User u = repo.fetchUser("parnab");
-	 * Policy p = repo.fetchUserPolicy(u.getPolicy().getPno());
-	 * repo.renewInsurance(p,"20/11/2050"); }
-	 * 
-	 * Test cases for admin
-	 * 
-	 * @Test public void testSetUserClaim() { User u = repo.fetchUser("parnab");
-	 * Claim c = repo.fetchUserClaim(u.getClaim().getCid());
-	 * repo.setUserClaim(c,"Approved",25000.00); }
-	 * 
-	 * @Test public void testRemoveUserClaim() { repo.removeUserClaim("parnab"); }
-	 */
+	
+	
+	/* Test for renewing an insurance*/
+	
+	@Test 
+	public void testRenewPolicy() { 
+		User u = repo.fetchUser("shilpi");
+		List<Policy> policies = u.getPolicies();
+		for (Policy p : policies) {
+			if(p.getPno().equals("BHGD1854"))
+				p.setExpDate("05/09/2025");
+		}
+		repo.updateUser(u);		
+	}
+	
+	/* test for admin to set the claim amount and status*/		
+	
+	@Test 
+	public void testSetUserClaim() { 
+		
+		User u = repo.fetchUser("shilpi");
+		Claim c = repo.fetchClaim("CL123");
+		List<Policy> policies = u.getPolicies();
+		for (Policy p : policies) {
+			if(p.getPno().equals("BHGD1854")) {
+				c.setAmount(25000);
+				c.setStatus("Approved");				
+			}
+			repo.setClaim(c);
+		}
+	}	
 }
+
+
+
+
+
+
+
+
+/*
+ * Test for renewing an insurance
+ * 
+ * @Test public void testRenewPolicy() { User u = repo.fetchUser("parnab");
+ * Policy p = repo.fetchUserPolicy(u.getPolicy().getPno());
+ * repo.renewInsurance(p,"20/11/2050"); }
+ * 
+ * Test cases for admin
+ * 
+ * @Test public void testSetUserClaim() { User u = repo.fetchUser("parnab");
+ * Claim c = repo.fetchUserClaim(u.getClaim().getCid());
+ * repo.setUserClaim(c,"Approved",25000.00); }
+ * 
+ * @Test public void testRemoveUserClaim() { repo.removeUserClaim("parnab"); }
+ */
